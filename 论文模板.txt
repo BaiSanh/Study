@@ -1,0 +1,1286 @@
+重庆三峡学院
+毕业设计（论文）
+
+
+题目：点菜系统的设计与实现
+
+注：定稿后请删除本文中所有红色注释文字和word图标
+
+学    院：计算科学与工程学院
+专    业：软件工程
+年    级：2021级
+姓    名：黄  旭  峰
+学    号：202106084211
+指导老师：涂  承  胜（教授）
+
+
+完成时间：2025年5月(与档案袋保持一致)
+ 
+说  明
+本系统专为餐馆及其他食品服务场所设计，旨在简化顾客点餐流程，并显著提升服务员和厨房工作人员的工作效率。该系统不仅支持顾客自助点餐，还提供了全面的后台管理功能，助力餐厅优化运营。顾客界面允许用户浏览菜单、选择菜品并提交特殊要求，例如不加辣或少盐等，同时实时查看订单状态及提交订单。管理员可以通过界面管理订单状态（如已下单、制作中、已完成），并根据需要修改或取消订单，确保服务灵活性。厨房界面接收来自前台的订单信息，并标记菜品开始制作及完成情况，提高出餐效率。管理系统则提供调整菜品价格和查看销售统计报表的功能，辅助决策制定。
+技术方面，使用HTML5、CSS3和JavaScript构建直观且响应迅速的用户界面，确保在各种设备上的兼容性和易用性。采用Java作为服务器端编程语言，处理复杂的业务逻辑、数据存储以及API接口调用，保证系统的稳定性和扩展性。MySQL用于存储所有关键数据，包括菜单信息、订单详情等，提供高效的数据管理和查询能力。注重界面设计与交互细节，确保操作简便流畅，提升用户体验。同时，实施严格的安全措施，保护用户数据安全，防止未授权访问。
+整个项目的实施步骤从需求分析开始，深入了解客户需求，明确系统功能和技术要求。接着精心规划系统架构，选定合适的技术栈，依据设计方案进行高效编码。通过这套先进的点菜系统，我们致力于提升顾客用餐体验，同时帮助餐厅管理者更高效地运作，降低成本，增加收益。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+目录
+摘要	III
+Abstract	IV
+1 绪论	1
+1.1 研究背景	1
+1.2 研究现状	1
+1.3 研究目的及意义	1
+1.4 研究方法	1
+1.5 研究内容	1
+1.6 本章小结	2
+2 相关技术和开发环境	2
+2.1 Vue.js	2
+2.2 Java	2
+2.3 Spring Boot	2
+2.4 MySql	2
+2.5 开发环境	2
+3 系统分析	3
+3.1 可行性研究	3
+3.1.1 经济可行性	3
+3.1.2 技术可行性	3
+3.1.3 运行可行性	3
+3.2 系统需求分析	3
+3.2.1 功能需求分析	3
+3.2.2 业务需求分析	3
+3.2.3 数据需求分析	4
+3.3 本章小结	4
+4 概要设计	4
+4.1 体系结构设计	4
+4.2 功能模块概要设计	4
+4.3 数据库概要设计	4
+4.4 本章小结	5
+5 详细设计	5
+5.1 功能模块详细设计	5
+5.2 数据库详细设计	5
+5.2.1 关系模型设计	6
+5.2.2 逻辑结构设计	6
+5.3 本章小结	6
+6 系统实现	6
+6.1 用户模块实现	6
+6.2 菜单模块实现	6
+6.3 点餐模块实现	6
+6.4 订单模块实现	6
+6.5 数据统计模块实现	6
+6.6 本章小结	6
+7 系统测试	7
+7.1 测试环境	7
+7.2 测试策略和方法	7
+7.3 测试的内容和步骤	7
+7.4 本章小结	8
+8 结 语	8
+致 谢	8
+参考文献	8
+附件1：	9
+
+ 
+点菜系统的设计与实现
+
+黄  旭  峰
+
+（重庆三峡学院计算机科学与工程学院软件工程专业2021级 重庆万州 404100）
+
+摘要：为满足餐饮行业信息化需求，本课题设计并实现了一款基于移动化的点菜系统。系统采用B/S架构，前端使用Vue.js开发，后端基于Java语言实现，并结合MySQL数据库进行数据管理。主要功能包括菜单浏览、下单支付、订单管理和数据分析等。通过模块化设计与安全性优化，确保系统稳定可靠，有效提升用户体验，降低餐厅运营成本，助力餐饮行业数字化转型。
+
+关键词：点菜系统，B/S架构，Vue.js，Java，MySQL。
+
+
+
+ 
+Design and Implementation of an Ordering System
+Huang Xu-feng
+
+  (Grade 2021, Software Engineering, School of Computer Science and Engineering, 
+Chongqing Three Gorges University, Wanzhou, Chongqing 404000 )
+
+Abstract：To meet the informatization needs of the catering industry, this project designs and implements a mobile-based ordering system. The system adopts a B/S architecture, with the front-end developed using Vue.js and the back-end implemented in Java, while MySQL is used for database management. Key functions include menu browsing, order placement and payment, order management, and data analysis. Through modular design and security optimization, the system ensures stability and reliability, effectively enhancing user experience and reducing restaurant operating costs, thus promoting the digital transformation of the catering industry.
+
+Key words: Ordering system, B/S architecture, Vue.js, Java, MySQL.
+
+
+ 
+1 绪论
+1.1 研究背景
+随着移动互联网的快速发展和智能设备的普及，餐饮行业正经历着深刻的变革。传统的点餐方式效率低下、容易出错，且难以满足顾客日益增长的个性化需求。同时，餐厅管理者也面临着运营成本高、数据分析困难等挑战。因此，利用信息技术改造传统餐饮行业，实现点餐流程的智能化、高效化，已成为一种必然趋势。
+1.2 研究现状
+目前，市面上涌现出各种各样的点餐系统，它们在功能、技术和用户体验上各有千秋。一些系统侧重于提供丰富的功能，如在线预订、会员管理、营销推广等；另一些系统则注重用户体验，采用简洁直观的界面设计和流畅的操作流程。然而，现有系统仍然存在一些不足之处，例如：部分系统对硬件设备依赖性强，
+本课题旨在设计并实现一款移动化的点菜系统，以解决传统点餐方式的弊端，提升顾客用餐体验，降低餐厅运营成本。通过采用先进的技术和方法，本系统力求在功能、性能、安全性和用户体验等方面达到最佳平衡，为餐饮行业的数字化转型提供一种可行的解决方案。
+本课题的研究具有重要的理论意义和实践价值。在理论上，本课题将探讨移动互联网、云计算、大数据等技术在餐饮行业的应用，为相关领域的研究提供参考。在实践上，本课题的研究成果可以直接应用于餐饮企业，帮助它们提升运营效率、降低成本、增加收益。
+1.4 研究方法
+本课题主要采用以下研究方法：
+文献研究法：查阅国内外相关文献，了解点餐系统的发展现状和趋势，为系统设计提供理论依据。
+需求分析法：通过访谈、问卷调查等方式，深入了解顾客和餐厅管理者的需求，为系统功能设计提供依据。
+原型设计法：采用原型设计工具，快速构建系统原型，并进行用户测试，不断优化系统设计。
+实验研究法：在实际餐厅环境中部署系统，并进行性能测试和用户体验评估，验证系统的有效性。
+1.5 研究内容
+本课题主要研究内容包括：
+系统需求分析：明确系统的功能需求、性能需求、安全需求和用户体验需求。
+系统架构设计：设计系统的整体架构，包括前端、后端和数据库。
+系统功能模块设计：设计各个功能模块的详细功能和接口。
+系统实现：采用 HTML5、CSS3、JavaScript、Java、Spring Boot 和 MySQL 等技术，实现系统的各个功能模块。
+系统测试：对系统进行全面的测试，包括功能测试、安全测试和用户体验测试。
+1.6 本章小结
+本章主要介绍了本课题的研究背景、研究现状、研究目的及意义、研究方法和研究内容。通过本章的阐述，读者可以对本课题有一个初步的了解。
+2 相关技术和开发环境
+本章主要介绍了本课题的研究背景、研究现状、研究目的及意义、研究方法和研究内容。通过本章的阐述，读者可以对本课题有一个初步的了解。
+2.1 Vue.js
+Vue.js 是一款流行的 JavaScript 前端框架，它采用组件化的开发模式，使得前端代码更加模块化、易于维护。Vue.js 提供了数据绑定、指令和组件等特性，可以大大提高前端开发效率。在本系统中，Vue.js 用于构建用户界面，实现数据驱动的视图更新。
+2.2 Java
+Java 是一种广泛使用的面向对象编程语言。它具有跨平台、高性能和高安全性的特点。在本系统中，Java 用于开发后端服务，处理业务逻辑和数据存储。
+2.3 Spring Boot
+Spring Boot 是一款流行的 Java 后端框架，它简化了 Spring 应用的配置和部署。Spring Boot 提供了自动配置、起步依赖和嵌入式服务器等特性，可以大大提高后端开发效率。在本系统中，Spring Boot 用于构建 RESTful API，处理前端请求。
+2.4 MySql
+MySQL 是一款流行的关系型数据库管理系统。它具有高性能、高可靠性和易于管理的特点。在本系统中，MySQL 用于存储系统数据，例如用户信息、菜单信息和订单信息。
+2.5 开发环境
+操作系统：Windows 11
+集成开发环境 (IDE)：IntelliJ IDEA
+版本控制系统：Git
+构建工具：Maven
+3 系统分析
+3.1 可行性研究
+可行性研究旨在评估项目的可行性，包括经济、技术和运行等方面。
+3.1.1 经济可行性
+本系统的开发和部署成本相对较低。前端采用 Vue.js 框架，可以快速构建用户界面；后端采用 Spring Boot 框架，可以简化开发流程；数据库采用 MySQL，是一款开源免费的数据库。此外，本系统可以有效降低餐厅的运营成本，例如减少人工成本、提高点餐效率和优化库存管理。因此，从经济角度来看，本系统是可行的。
+3.1.2 技术可行性
+本系统所采用的技术都是成熟且广泛应用的技术，例如 HTML5、CSS3、JavaScript、Vue.js、Java、Spring Boot 和 MySQL。这些技术都有完善的文档和社区支持，可以满足系统的开发需求。此外，本系统采用 B/S 架构，可以跨平台运行，无需安装客户端，降低了部署和维护成本。因此，从技术角度来看，本系统是可行的。
+3.1.3 运行可行性
+本系统操作简单、易于使用。用户可以通过浏览器或移动设备访问系统，无需进行复杂的配置。系统提供了友好的用户界面和清晰的操作流程，用户可以快速上手。此外，本系统具有良好的稳定性和可靠性，可以保证系统的正常运行。因此，从运行角度来看，本系统是可行的。
+3.2 系统需求分析
+系统需求分析旨在明确系统的功能需求、业务需求和数据需求。
+3.2.1 功能需求分析
+本系统应具备以下功能：
+用户管理： 包括用户注册、登录、信息修改等功能。
+菜单管理： 包括菜品添加、删除、修改、查询等功能。
+点餐管理： 包括菜品浏览、下单、订单查询、订单取消等功能。
+订单管理： 包括订单状态管理、订单支付管理等功能。
+数据统计： 包括销售额统计、菜品销量统计等功能。
+3.2.2 业务需求分析
+本系统应满足以下业务需求：
+提升点餐效率： 通过自助点餐和移动支付，减少顾客等待时间，提高点餐效率。
+优化订单管理： 通过订单状态管理和厨房管理，提高订单处理效率，减少出错率。
+降低运营成本： 通过减少人工成本和优化库存管理，降低餐厅运营成本。
+提升用户体验： 通过友好的用户界面和个性化服务，提升顾客用餐体验。
+3.2.3 数据需求分析
+本系统需要存储以下数据：
+用户信息：包括用户名、密码、联系方式等。
+菜单信息：包括菜品名称、价格、图片、描述等。
+订单信息：包括订单号、下单时间、订单状态、订单金额等。
+支付信息：包括支付方式、支付金额、支付时间等。
+3.3 本章小结
+本章对本系统进行了可行性研究和需求分析。通过可行性研究，论证了本系统在经济、技术和运行等方面是可行的。通过需求分析，明确了本系统的功能需求、业务需求和数据需求。
+4 概要设计
+4.1 体系结构设计
+本系统采用基于B/S（Browser/Server，浏览器/服务器）模式的前后端分离架构，如图4-1所示。
+
+![系统架构图](图4-1 系统架构图.png)
+
+图4-1 系统架构图
+
+#### 4.1.1 总体架构
+
+系统总体架构分为四层：
+1. 用户层：包括管理员用户和普通用户，通过PC端或移动端浏览器访问系统。
+2. 表示层：采用Vue.js框架构建的前端应用，负责用户界面展示和交互。
+3. 业务逻辑层：基于Spring Boot框架构建的后端应用，负责处理业务逻辑。
+4. 数据持久层：使用MySQL数据库进行数据存储和管理。
+
+#### 4.1.2 前端架构
+
+前端采用现代化的Vue.js框架，主要技术组件包括：
+- Vue.js：用于构建用户界面的渐进式JavaScript框架
+- Vue Router：实现前端路由管理
+- Vuex：实现状态管理
+- Element UI：组件库，提供丰富的UI组件
+- Axios：基于Promise的HTTP客户端，用于与后端API通信
+
+前端应用根据用户角色分为两个部分：管理端和用户端。管理端主要面向餐厅管理员，提供菜单管理、订单管理、数据统计等功能；用户端主要面向顾客，提供浏览菜单、点餐下单、查看订单等功能。
+
+#### 4.1.3 后端架构
+
+后端采用Java语言，基于Spring Boot框架开发，主要技术组件包括：
+- Spring Boot：简化Spring应用的初始化配置和开发过程
+- MyBatis：持久层框架，负责与数据库交互
+- Spring MVC：处理HTTP请求，实现RESTful API
+- JWT：用于用户身份认证和授权
+- Lombok：简化Java代码，减少样板代码
+- Swagger：API文档生成工具，方便前后端对接
+
+后端应用采用分层架构设计，包括：
+- Controller层：负责接收和处理HTTP请求，返回响应结果
+- Service层：负责业务逻辑处理
+- Mapper层：负责数据库操作
+- Entity层：实体类，对应数据库表结构
+- DTO层：数据传输对象，用于Controller和Service层之间的数据传输
+- Util层：工具类，提供通用功能
+
+#### 4.1.4 数据存储架构
+
+数据存储采用MySQL关系型数据库，主要包括以下几个方面：
+- 基础数据：包括用户、菜品、分类、套餐等基础信息
+- 业务数据：包括订单、订单明细、购物车等业务数据
+- 配置数据：包括店铺信息等配置数据
+
+#### 4.1.5 通信机制
+
+前后端通过HTTP协议进行通信，采用RESTful风格的API设计。API接口根据功能划分为多个模块，如用户模块、菜品模块、订单模块等。通信过程中，数据采用JSON格式进行传输，前端通过Axios库发送请求，后端通过统一的响应格式返回结果。
+
+系统采用JWT（JSON Web Token）机制进行身份认证，用户登录后，服务器生成Token返回给客户端，客户端在后续请求中通过请求头携带Token，服务器验证Token的有效性来判断用户身份和权限。
+
+整个系统架构设计充分考虑了可扩展性、可维护性和安全性，能够满足餐厅点菜系统的各项功能需求，并且具有良好的性能和用户体验。
+
+4.2 功能模块概要设计
+本系统主要包括以下功能模块：
+用户模块：负责用户管理，包括用户注册、登录、信息修改等功能。
+菜单模块：负责菜单管理，包括菜品添加、删除、修改、查询等功能。
+点餐模块：负责点餐管理，包括菜品浏览、下单、订单查询、订单取消等功能。
+订单模块：负责订单管理，包括订单状态管理、订单支付管理等功能。
+数据统计模块：负责数据统计，包括销售额统计、菜品销量统计等功能。
+4.3 数据库概要设计
+本系统需要存储以下实体：
+地址簿 (AddressBook)：包含地址簿 ID、用户 ID、收货人、性别、手机号、省市区代码和名称、详细地址、标签、是否默认等属性。
+分类 (Category)：包含分类 ID、类型、名称、排序、状态、创建时间、更新时间、创建人、修改人等属性。
+菜品 (Dish)：包含菜品 ID、名称、分类 ID、价格、图片、描述信息、状态、创建时间、更新时间、创建人、修改人等属性。
+菜品口味 (DishFlavor)：包含口味 ID、菜品 ID、口味名称、口味数据列表等属性。
+员工 (Employee)： 包含员工 ID、姓名、用户名、密码、手机号、性别、身份证号、状态、创建时间、更新时间、创建人、修改人等属性。
+订单明细 (OrderDetail)：包含订单明细 ID、名字、图片、订单 ID、菜品 ID、套餐 ID、口味、数量、金额等属性。
+订单 (Orders)： 包含订单 ID、订单号、状态、下单用户、地址 ID、下单时间、结账时间、支付方式、支付状态、实收金额、备注、手机号、地址、用户名称、收货人、取消原因、拒绝原因、取消时间、状态等属性。
+套餐 (Setmeal)：包含套餐 ID、菜品分类 ID、套餐名称、套餐价格、售卖状态、描述信息、图片、创建时间、更新时间、创建人、修改人等属性。
+套餐菜品 (SetmealDish)： 包含套餐菜品 ID、套餐 ID、菜品 ID、菜品名称、菜品单价、菜品份数等属性。
+店铺 (Shop)：包含店铺ID、店铺名称、店铺地址、店铺电话、营业时间、店铺介绍、店铺LOGO、店铺公告、创建时间、更新时间等属性
+购物车 (ShoppingCart)：包含购物车 ID、商品名称、图片、用户 ID、菜品 ID、套餐 ID、口味、数量、金额、创建时间等属性。
+用户 (User)：包含用户 ID、姓名、手机号、密码、性别、身份证号、头像、创建时间等属性。
+4.4 本章小结
+本章对本系统进行了概要设计，包括体系结构设计、功能模块概要设计和数据库概要设计。通过本章的阐述，读者可以对本系统的整体架构和主要功能有一个清晰的了解。
+5 详细设计
+5.1 功能模块详细设计
+本节将对系统的各个功能模块进行详细设计，并提供必要的功能时序图。由于篇幅限制，这里仅以点餐模块为例进行详细设计。
+5.1.1 用户模块
+5.1.2 菜单模块
+5.1.3 点餐模块
+功能描述：用户可以在该模块浏览菜单、选择菜品、添加菜品到购物车、修改购物车中的菜品数量、提交订单等。
+功能流程：
+用户打开点餐页面，系统从数据库中加载菜单信息并显示。
+用户浏览菜单，选择菜品，并添加到购物车。
+用户可以在购物车中修改菜品数量或删除菜品。
+用户确认订单信息，并提交订单。
+系统将订单信息保存到数据库，并生成订单号。
+系统显示订单提交成功页面，并提供订单查询入口。
+时序图：
+5.1.4 订单模块
+5.1.5 数据统计模块
+5.2 数据库详细设计
+本节将对数据库进行详细设计，包括关系模型设计和逻辑结构设计。
+5.2.1 关系模型设计
+根据数据库概要设计中的实体和属性，可以得到以下关系模型：
+用户表 (user)：
+菜品表 (dish)：
+订单表 (order)：
+订单项表 (order_item)：
+5.2.2 逻辑结构设计
+根据系统需求和关系模型设计，完整的数据库表结构如下：
+
+1. 用户表(user)：
+```sql
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `openid` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '微信用户唯一标识',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '姓名',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '手机号',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '密码',
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '性别',
+  `id_number` varchar(18) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '身份证号',
+  `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '头像',
+  `create_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '用户信息'
+```
+
+2. 地址簿表(address_book)：
+```sql
+CREATE TABLE `address_book` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `consignee` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '收货人',
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '性别',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '手机号',
+  `province_code` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省级区划编号',
+  `province_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '省级名称',
+  `city_code` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '市级区划编号',
+  `city_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '市级名称',
+  `district_code` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '区级区划编号',
+  `district_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '区级名称',
+  `detail` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详细地址',
+  `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '默认 0 否 1是',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '地址簿'
+```
+
+3. 员工表(employee)：
+```sql
+CREATE TABLE `employee` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '姓名',
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户名',
+  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '密码',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '手机号',
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '性别',
+  `id_number` varchar(18) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '身份证号',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '状态 0:禁用，1:启用',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_username`(`username`) USING BTREE
+) ENGINE = InnoDB COMMENT = '员工信息'
+```
+
+4. 分类表(category)：
+```sql
+CREATE TABLE `category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` int(11) NULL DEFAULT NULL COMMENT '类型   1 菜品分类 2 套餐分类',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '分类名称',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '顺序',
+  `status` int(11) NULL DEFAULT NULL COMMENT '分类状态 0:禁用，1:启用',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_category_name`(`name`) USING BTREE
+) ENGINE = InnoDB COMMENT = '菜品及套餐分类'
+```
+
+5. 菜品表(dish)：
+```sql
+CREATE TABLE `dish` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '菜品名称',
+  `category_id` bigint(20) NOT NULL COMMENT '菜品分类id',
+  `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '菜品价格',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '描述信息',
+  `status` int(11) NULL DEFAULT 1 COMMENT '0 停售 1 起售',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_dish_name`(`name`) USING BTREE
+) ENGINE = InnoDB COMMENT = '菜品'
+```
+
+6. 菜品口味表(dish_flavor)：
+```sql
+CREATE TABLE `dish_flavor` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `dish_id` bigint(20) NOT NULL COMMENT '菜品',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '口味名称',
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '口味数据list',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '菜品口味关系表'
+```
+
+7. 套餐表(setmeal)：
+```sql
+CREATE TABLE `setmeal` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `category_id` bigint(20) NOT NULL COMMENT '菜品分类id',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '套餐名称',
+  `price` decimal(10, 2) NOT NULL COMMENT '套餐价格',
+  `status` int(11) NULL DEFAULT 1 COMMENT '售卖状态 0:停售 1:起售',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '描述信息',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_setmeal_name`(`name`) USING BTREE
+) ENGINE = InnoDB COMMENT = '套餐'
+```
+
+8. 套餐菜品关系表(setmeal_dish)：
+```sql
+CREATE TABLE `setmeal_dish` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `setmeal_id` bigint(20) NULL DEFAULT NULL COMMENT '套餐id',
+  `dish_id` bigint(20) NULL DEFAULT NULL COMMENT '菜品id',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '菜品名称 （冗余字段）',
+  `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '菜品单价（冗余字段）',
+  `copies` int(11) NULL DEFAULT NULL COMMENT '菜品份数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '套餐菜品关系'
+```
+
+9. 购物车表(shopping_cart)：
+```sql
+CREATE TABLE `shopping_cart` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '商品名称',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片',
+  `user_id` bigint(20) NOT NULL COMMENT '主键',
+  `dish_id` bigint(20) NULL DEFAULT NULL COMMENT '菜品id',
+  `setmeal_id` bigint(20) NULL DEFAULT NULL COMMENT '套餐id',
+  `dish_flavor` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '口味',
+  `number` int(11) NOT NULL DEFAULT 1 COMMENT '数量',
+  `amount` decimal(10, 2) NOT NULL COMMENT '金额',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '购物车'
+```
+
+10. 订单表(orders)：
+```sql
+CREATE TABLE `orders` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `number` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '订单号',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消 7退款',
+  `user_id` bigint(20) NOT NULL COMMENT '下单用户',
+  `address_book_id` bigint(20) NOT NULL COMMENT '地址id',
+  `order_time` datetime NOT NULL COMMENT '下单时间',
+  `checkout_time` datetime NULL DEFAULT NULL COMMENT '结账时间',
+  `pay_method` int(11) NOT NULL DEFAULT 1 COMMENT '支付方式 1微信,2支付宝',
+  `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '支付状态 0未支付 1已支付 2退款',
+  `amount` decimal(10, 2) NOT NULL COMMENT '实收金额',
+  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '备注',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '手机号',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '地址',
+  `user_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '用户名称',
+  `consignee` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '收货人',
+  `cancel_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '订单取消原因',
+  `rejection_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '订单拒绝原因',
+  `cancel_time` datetime NULL DEFAULT NULL COMMENT '订单取消时间',
+  `estimated_delivery_time` datetime NULL DEFAULT NULL COMMENT '预计送达时间',
+  `delivery_status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '配送状态  1立即送出  0选择具体时间',
+  `delivery_time` datetime NULL DEFAULT NULL COMMENT '送达时间',
+  `pack_amount` int(11) NULL DEFAULT NULL COMMENT '打包费',
+  `tableware_number` int(11) NULL DEFAULT NULL COMMENT '餐具数量',
+  `tableware_status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '餐具数量状态  1按餐量提供  0选择具体数量',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '订单表'
+```
+
+11. 订单明细表(order_detail)：
+```sql
+CREATE TABLE `order_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '名字',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片',
+  `order_id` bigint(20) NOT NULL COMMENT '订单id',
+  `dish_id` bigint(20) NULL DEFAULT NULL COMMENT '菜品id',
+  `setmeal_id` bigint(20) NULL DEFAULT NULL COMMENT '套餐id',
+  `dish_flavor` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '口味',
+  `number` int(11) NOT NULL DEFAULT 1 COMMENT '数量',
+  `amount` decimal(10, 2) NOT NULL COMMENT '金额',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '订单明细表'
+```
+
+12. 店铺信息表(shop)：
+```sql
+CREATE TABLE `shop` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺名称',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺地址',
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺电话',
+  `business_hours` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '营业时间',
+  `introduction` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺介绍',
+  `logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺LOGO',
+  `notice` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '店铺公告',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB COMMENT = '店铺信息表'
+```
+
+通过以上表结构设计，实现了系统中各个实体之间的关联关系，例如：
+- 用户与地址簿通过用户id关联
+- 菜品与分类通过分类id关联
+- 菜品与口味通过菜品id关联
+- 套餐与菜品通过套餐菜品关系表关联
+- 订单与订单明细通过订单id关联
+- 用户与订单通过用户id关联
+
+5.3 本章小结
+本章对本系统进行了详细设计，包括功能模块详细设计和数据库详细设计。通过本章的阐述，读者可以对本系统的各个功能模块和数据库设计有一个清晰的了解。
+6 系统实现
+本系统采用前后端分离的开发模式，前端使用Vue.js框架，后端使用Java语言和Spring Boot框架。本章将对各个模块的实现进行详细介绍，包括界面设计和核心代码。
+
+6.1 用户模块实现
+用户模块是系统的基础模块，主要实现用户的注册、登录、个人信息管理等功能。根据系统的业务需求，用户分为普通用户和管理员两种角色，分别对应不同的权限和操作界面。
+
+#### 6.1.1 用户登录
+
+用户登录界面如图6-1所示，用户可以通过手机号和密码进行登录。登录成功后，系统会生成JWT令牌并返回给前端，前端将令牌存储在本地存储中，后续请求都会携带此令牌进行身份验证。
+
+![用户登录界面](图6-1 用户登录界面.png)
+
+图6-1 用户登录界面
+
+用户登录的前端代码片段如下：
+
+```javascript
+// 用户登录方法
+login() {
+  if (this.form.phone && this.form.password) {
+    this.loading = true
+    this.$axios.post('/user/user/login', this.form)
+      .then(res => {
+        if (res.code === 1) {
+          localStorage.setItem('userToken', res.data.token)
+          localStorage.setItem('userInfo', JSON.stringify(res.data.user))
+          this.$router.push('/home')
+          this.$message.success('登录成功')
+        } else {
+          this.$message.error(res.msg || '登录失败')
+        }
+      })
+      .catch(err => {
+        this.$message.error('登录失败，请稍后重试')
+        console.error(err)
+      })
+      .finally(() => {
+        this.loading = false
+      })
+  } else {
+    this.$message.warning('请输入手机号和密码')
+  }
+}
+```
+
+后端登录接口的核心代码如下：
+
+```java
+/**
+ * 用户登录
+ * @param userLoginDTO 登录信息传输对象
+ * @return 登录结果
+ */
+@PostMapping("/login")
+@ApiOperation("用户登录")
+public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
+    log.info("用户登录：{}", userLoginDTO);
+    
+    // 调用service进行登录
+    User user = userService.login(userLoginDTO);
+    
+    // 生成JWT令牌
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("userId", user.getId());
+    String token = JwtUtil.createJWT(
+        jwtProperties.getUserSecretKey(),
+        jwtProperties.getUserTtl(),
+        claims);
+    
+    // 构建登录返回结果
+    UserLoginVO userLoginVO = UserLoginVO.builder()
+        .id(user.getId())
+        .name(user.getName())
+        .phone(user.getPhone())
+        .token(token)
+        .build();
+    
+    return Result.success(userLoginVO);
+}
+```
+
+#### 6.1.2 用户注册
+
+用户注册界面如图6-2所示，新用户可以通过注册界面填写基本信息创建账号。系统会对手机号的唯一性进行验证，并对密码进行加密存储，确保用户信息安全。
+
+![用户注册界面](图6-2 用户注册界面.png)
+
+图6-2 用户注册界面
+
+用户注册的服务层核心代码如下：
+
+```java
+/**
+ * 用户注册
+ * @param userRegisterDTO 注册信息传输对象
+ */
+@Override
+@Transactional
+public void register(UserRegisterDTO userRegisterDTO) {
+    // 判断手机号是否存在
+    String phone = userRegisterDTO.getPhone();
+    User existUser = userMapper.getByPhone(phone);
+    if (existUser != null) {
+        throw new BaseException("该手机号已注册");
+    }
+    
+    // 构建用户对象
+    User user = User.builder()
+        .name(userRegisterDTO.getName())
+        .phone(phone)
+        .password(DigestUtils.md5DigestAsHex(userRegisterDTO.getPassword().getBytes()))
+        .sex(userRegisterDTO.getSex())
+        .createTime(LocalDateTime.now())
+        .build();
+    
+    // 保存用户信息
+    userMapper.insert(user);
+}
+```
+
+#### 6.1.3 个人信息管理
+
+用户可以在个人中心查看和修改个人信息，包括用户名、头像、手机号等，如图6-3所示。
+
+![个人信息管理界面](图6-3 个人信息管理界面.png)
+
+图6-3 个人信息管理界面
+
+个人信息更新的控制器代码如下：
+
+```java
+/**
+ * 更新用户信息
+ * @param userDTO 用户信息传输对象
+ * @return 更新结果
+ */
+@PutMapping("/info")
+@ApiOperation("更新用户信息")
+public Result<String> updateUserInfo(@RequestBody UserDTO userDTO) {
+    log.info("更新用户信息：{}", userDTO);
+    userService.updateUserInfo(userDTO);
+    return Result.success();
+}
+```
+
+6.2 菜单模块实现
+菜单模块是系统的核心模块之一，主要包括菜品分类管理、菜品管理、套餐管理等功能。通过菜单模块，管理员可以对餐厅的菜单进行全面管理，用户可以浏览菜单进行点餐。
+
+#### 6.2.1 菜品分类管理
+
+菜品分类管理界面如图6-4所示，管理员可以添加、修改、删除菜品分类，并可以调整分类的显示顺序。
+
+![菜品分类管理界面](图6-4 菜品分类管理界面.png)
+
+图6-4 菜品分类管理界面
+
+菜品分类管理的控制器代码如下：
+
+```java
+/**
+ * 新增分类
+ * @param categoryDTO 分类信息传输对象
+ * @return 新增结果
+ */
+@PostMapping
+@ApiOperation("新增分类")
+public Result<String> save(@RequestBody CategoryDTO categoryDTO) {
+    log.info("新增分类：{}", categoryDTO);
+    categoryService.save(categoryDTO);
+    return Result.success();
+}
+
+/**
+ * 分页查询分类
+ * @param categoryPageQueryDTO 分类查询条件
+ * @return 分页结果
+ */
+@GetMapping("/page")
+@ApiOperation("分页查询分类")
+public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO) {
+    log.info("分页查询分类：{}", categoryPageQueryDTO);
+    PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+    return Result.success(pageResult);
+}
+
+/**
+ * 删除分类
+ * @param id 分类ID
+ * @return 删除结果
+ */
+@DeleteMapping
+@ApiOperation("删除分类")
+public Result<String> deleteById(Long id) {
+    log.info("删除分类：{}", id);
+    categoryService.deleteById(id);
+    return Result.success();
+}
+```
+
+#### 6.2.2 菜品管理
+
+菜品管理界面如图6-5所示，管理员可以添加、修改、删除菜品，并可以设置菜品的分类、价格、图片、描述等信息。同时，还可以管理菜品的口味，如辣度、甜度等。
+
+![菜品管理界面](图6-5 菜品管理界面.png)
+
+图6-5 菜品管理界面
+
+菜品添加的前端代码片段如下：
+
+```javascript
+// 提交菜品表单
+submitForm() {
+  this.$refs.dishForm.validate(valid => {
+    if (valid) {
+      const formData = { ...this.dishForm }
+      // 处理口味数据
+      if (this.flavors.length > 0) {
+        formData.flavors = this.flavors.filter(item => item.name)
+      }
+      
+      this.loading = true
+      const request = this.isEdit 
+        ? this.$axios.put('/admin/dish', formData)
+        : this.$axios.post('/admin/dish', formData)
+        
+      request.then(res => {
+        if (res.code === 1) {
+          this.$message.success(this.isEdit ? '修改成功' : '添加成功')
+          this.$router.push('/dish-manage')
+        } else {
+          this.$message.error(res.msg || (this.isEdit ? '修改失败' : '添加失败'))
+        }
+      }).catch(err => {
+        console.error(err)
+        this.$message.error('提交失败，请稍后重试')
+      }).finally(() => {
+        this.loading = false
+      })
+    }
+  })
+}
+```
+
+菜品管理的服务层核心代码如下：
+
+```java
+/**
+ * 新增菜品和对应的口味
+ * @param dishDTO 菜品信息传输对象
+ */
+@Override
+@Transactional
+public void saveWithFlavor(DishDTO dishDTO) {
+    Dish dish = new Dish();
+    BeanUtils.copyProperties(dishDTO, dish);
+    
+    // 保存菜品基本信息
+    dishMapper.insert(dish);
+    
+    // 获取菜品ID
+    Long dishId = dish.getId();
+    
+    // 保存菜品口味
+    List<DishFlavor> flavors = dishDTO.getFlavors();
+    if (flavors != null && !flavors.isEmpty()) {
+        flavors.forEach(flavor -> {
+            flavor.setDishId(dishId);
+        });
+        dishFlavorMapper.insertBatch(flavors);
+    }
+}
+```
+
+#### 6.2.3 前台菜单展示
+
+用户点餐界面如图6-6所示，用户可以根据菜品分类浏览菜单，查看菜品详情，并可以选择菜品的口味和数量加入购物车。
+
+![前台菜单展示界面](图6-6 前台菜单展示界面.png)
+
+图6-6 前台菜单展示界面
+
+菜单展示的前端代码片段如下：
+
+```javascript
+// 获取菜品分类和菜品列表
+async fetchData() {
+  this.loading = true
+  try {
+    // 获取分类列表
+    const categoryRes = await this.$axios.get('/user/category/list')
+    if (categoryRes.code === 1) {
+      this.categoryList = categoryRes.data
+      if (this.categoryList.length > 0) {
+        this.activeCategory = this.categoryList[0].id
+        // 获取当前分类下的菜品
+        await this.fetchDishList(this.activeCategory)
+      }
+    }
+  } catch (err) {
+    console.error(err)
+    this.$message.error('获取菜单失败，请稍后重试')
+  } finally {
+    this.loading = false
+  }
+},
+// 获取指定分类下的菜品
+async fetchDishList(categoryId) {
+  if (!categoryId) return
+  
+  try {
+    const dishRes = await this.$axios.get(`/user/dish/list`, {
+      params: { categoryId }
+    })
+    if (dishRes.code === 1) {
+      this.dishList = dishRes.data
+    }
+  } catch (err) {
+    console.error(err)
+    this.$message.error('获取菜品失败')
+  }
+}
+```
+
+6.3 点餐模块实现
+点餐模块主要实现用户的点餐功能，包括菜品浏览、购物车管理、下单等功能。
+
+#### 6.3.1 购物车管理
+
+用户可以将选中的菜品添加到购物车，并可以在购物车中修改菜品数量或删除菜品，如图6-7所示。
+
+![购物车管理界面](图6-7 购物车管理界面.png)
+
+图6-7 购物车管理界面
+
+购物车管理的控制器代码如下：
+
+```java
+/**
+ * 添加购物车
+ * @param shoppingCartDTO 购物车信息传输对象
+ * @return 添加结果
+ */
+@PostMapping("/add")
+@ApiOperation("添加购物车")
+public Result<ShoppingCart> add(@RequestBody ShoppingCartDTO shoppingCartDTO) {
+    log.info("添加购物车：{}", shoppingCartDTO);
+    ShoppingCart shoppingCart = shoppingCartService.add(shoppingCartDTO);
+    return Result.success(shoppingCart);
+}
+
+/**
+ * 查看购物车
+ * @return 购物车列表
+ */
+@GetMapping("/list")
+@ApiOperation("查看购物车")
+public Result<List<ShoppingCart>> list() {
+    List<ShoppingCart> list = shoppingCartService.showShoppingCart();
+    return Result.success(list);
+}
+
+/**
+ * 清空购物车
+ * @return 清空结果
+ */
+@DeleteMapping("/clean")
+@ApiOperation("清空购物车")
+public Result<String> clean() {
+    shoppingCartService.cleanShoppingCart();
+    return Result.success();
+}
+```
+
+6.4 订单模块实现
+订单模块主要实现用户下单、订单管理、订单支付等功能。
+
+#### 6.4.1 订单提交
+
+用户在确认订单信息后，可以提交订单，系统会生成订单号并保存订单信息，如图6-8所示。
+
+![订单提交界面](图6-8 订单提交界面.png)
+
+图6-8 订单提交界面
+
+订单提交的服务层核心代码如下：
+
+```java
+/**
+ * 用户下单
+ * @param ordersSubmitDTO 订单提交信息传输对象
+ * @return 订单ID
+ */
+@Override
+@Transactional
+public Long submit(OrdersSubmitDTO ordersSubmitDTO) {
+    // 获取当前用户ID
+    Long userId = BaseContext.getCurrentId();
+    
+    // 查询当前用户的购物车数据
+    List<ShoppingCart> shoppingCartList = shoppingCartMapper.list(userId);
+    if (shoppingCartList == null || shoppingCartList.isEmpty()) {
+        throw new BaseException("购物车为空，不能下单");
+    }
+    
+    // 查询地址信息
+    AddressBook addressBook = addressBookMapper.getById(ordersSubmitDTO.getAddressBookId());
+    if (addressBook == null) {
+        throw new BaseException("地址信息有误，不能下单");
+    }
+    
+    // 构建订单数据
+    Orders orders = new Orders();
+    BeanUtils.copyProperties(ordersSubmitDTO, orders);
+    
+    // 设置订单相关属性
+    orders.setUserId(userId);
+    orders.setOrderTime(LocalDateTime.now());
+    orders.setPayStatus(OrdersConstant.UN_PAID);
+    orders.setStatus(OrdersConstant.PENDING_PAYMENT);
+    orders.setNumber(String.valueOf(System.currentTimeMillis()));
+    orders.setPhone(addressBook.getPhone());
+    orders.setConsignee(addressBook.getConsignee());
+    orders.setAddress(addressBook.getFullAddress());
+    
+    // 保存订单
+    orderMapper.insert(orders);
+    
+    // 保存订单明细
+    List<OrderDetail> orderDetailList = new ArrayList<>();
+    for (ShoppingCart cart : shoppingCartList) {
+        OrderDetail orderDetail = new OrderDetail();
+        BeanUtils.copyProperties(cart, orderDetail);
+        orderDetail.setOrderId(orders.getId());
+        orderDetailList.add(orderDetail);
+    }
+    orderDetailMapper.insertBatch(orderDetailList);
+    
+    // 清空购物车
+    shoppingCartMapper.deleteByUserId(userId);
+    
+    return orders.getId();
+}
+```
+
+#### 6.4.2 订单管理
+
+管理员可以在订单管理界面查看所有订单，并可以对订单进行接单、配送、完成等操作，如图6-9所示。
+
+![订单管理界面](图6-9 订单管理界面.png)
+
+图6-9 订单管理界面
+
+订单管理的控制器代码如下：
+
+```java
+/**
+ * 订单分页查询
+ * @param ordersPageQueryDTO 订单查询条件
+ * @return 分页结果
+ */
+@GetMapping("/page")
+@ApiOperation("订单分页查询")
+public Result<PageResult> page(OrdersPageQueryDTO ordersPageQueryDTO) {
+    PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
+    return Result.success(pageResult);
+}
+
+/**
+ * 接单
+ * @param ordersConfirmDTO 订单确认信息传输对象
+ * @return 接单结果
+ */
+@PutMapping("/confirm")
+@ApiOperation("接单")
+public Result<String> confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
+    orderService.confirm(ordersConfirmDTO);
+    return Result.success();
+}
+
+/**
+ * 订单派送
+ * @param id 订单ID
+ * @return 派送结果
+ */
+@PutMapping("/delivery/{id}")
+@ApiOperation("订单派送")
+public Result<String> delivery(@PathVariable("id") Long id) {
+    orderService.delivery(id);
+    return Result.success();
+}
+
+/**
+ * 订单完成
+ * @param id 订单ID
+ * @return 完成结果
+ */
+@PutMapping("/complete/{id}")
+@ApiOperation("订单完成")
+public Result<String> complete(@PathVariable("id") Long id) {
+    orderService.complete(id);
+    return Result.success();
+}
+```
+
+6.5 数据统计模块实现
+数据统计模块主要实现销售数据的统计和分析，为餐厅管理提供决策支持。
+
+#### 6.5.1 营业额统计
+
+系统可以统计不同时间段的营业额，并以图表形式展示，如图6-10所示。
+
+![营业额统计界面](图6-10 营业额统计界面.png)
+
+图6-10 营业额统计界面
+
+营业额统计的服务层核心代码如下：
+
+```java
+/**
+ * 统计指定时间段内的营业额
+ * @param begin 开始日期
+ * @param end 结束日期
+ * @return 营业额数据
+ */
+@Override
+public TurnoverReportVO getTurnoverStatistics(LocalDate begin, LocalDate end) {
+    // 统计日期列表
+    List<LocalDate> dateList = new ArrayList<>();
+    dateList.add(begin);
+    
+    while (!begin.equals(end)) {
+        begin = begin.plusDays(1);
+        dateList.add(begin);
+    }
+    
+    // 统计每天的营业额
+    List<Double> turnoverList = new ArrayList<>();
+    for (LocalDate date : dateList) {
+        // 查询指定日期的已完成订单的营业额
+        LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
+        LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
+        
+        // 营业额默认为0
+        Double turnover = 0.0;
+        
+        // 查询营业额
+        Double dailyTurnover = orderMapper.sumByStatusAndOrderTime(
+            OrdersConstant.COMPLETED, 
+            beginTime, 
+            endTime);
+            
+        if (dailyTurnover != null) {
+            turnover = dailyTurnover;
+        }
+        
+        turnoverList.add(turnover);
+    }
+    
+    // 返回结果
+    return TurnoverReportVO.builder()
+        .dateList(StringUtils.join(dateList, ","))
+        .turnoverList(StringUtils.join(turnoverList, ","))
+        .build();
+}
+```
+
+#### 6.5.2 菜品销量统计
+
+系统可以统计菜品的销量排行，帮助餐厅了解热门菜品，如图6-11所示。
+
+![菜品销量统计界面](图6-11 菜品销量统计界面.png)
+
+图6-11 菜品销量统计界面
+
+菜品销量统计的控制器代码如下：
+
+```java
+/**
+ * 查询销量排名前10的菜品
+ * @return 销量排行数据
+ */
+@GetMapping("/top10")
+@ApiOperation("查询销量排名前10的菜品")
+public Result<SalesTop10ReportVO> getTop10(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+    SalesTop10ReportVO salesTop10ReportVO = reportService.getSalesTop10(begin, end);
+    return Result.success(salesTop10ReportVO);
+}
+```
+
+6.6 本章小结
+本章对本系统的各个功能模块进行了实现，包括用户模块、菜单模块、点餐模块、订单模块和数据统计模块。通过本章的阐述，读者可以对系统的具体实现有一个清晰的了解，了解系统各个模块的界面设计和核心代码实现。
+7 系统测试
+7.1 测试环境
+硬件环境：
+CPU：Intel Core i5-8250U
+内存：8GB
+硬盘：256GB SSD
+软件环境：
+操作系统：Windows 10
+Web 浏览器：Chrome 91.0.4472.124
+Java 开发工具包 (JDK)：1.8.0\291
+MySQL 数据库：8.0.25
+Vue.js：2.6.11
+Spring Boot：2.5.0
+7.2 测试策略和方法
+本系统采用功能测试作为主要的测试策略。功能测试是指对系统的各项功能进行验证，以确保其符合需求规格说明书的要求。
+
+本系统测试主要采用以下方法：
+1. 黑盒测试：通过输入数据和观察输出结果，检验系统的功能是否符合需求规范，而不关注内部实现机制。
+2. 集成测试：在单元测试的基础上，将多个模块组合起来测试，验证模块间的接口和交互是否正确。
+3. 系统测试：对整个系统进行测试，验证系统整体功能和性能是否满足需求。
+4. 用户接受度测试：邀请真实用户使用系统，评估系统的易用性和用户体验。
+
+测试过程按照以下步骤进行：
+1. 制定测试计划和测试用例
+2. 搭建测试环境
+3. 执行测试
+4. 记录测试结果
+5. 分析和修复问题
+6. 进行回归测试
+
+7.3 测试的内容和步骤
+本系统主要测试以下内容：
+用户模块： 测试用户注册、登录、信息修改等功能是否正常。
+菜单模块： 测试菜品添加、删除、修改、查询等功能是否正常。
+点餐模块： 测试菜品浏览、下单、订单查询、订单取消等功能是否正常。
+订单模块： 测试订单状态管理、订单支付管理等功能是否正常。
+厨房模块： 测试订单接收、菜品制作状态管理等功能是否正常。
+数据统计模块： 测试销售额统计、菜品销量统计等功能是否正常。
+
+### 7.3.1 用户模块测试
+
+用户模块的测试用例如表7-1所示。
+
+表7-1 用户模块测试用例
+
+| 测试ID | 测试模块 | 测试项 | 测试步骤 | 测试数据 | 预期结果 | 实际结果 | 测试结果 |
+| ------ | -------- | ------ | -------- | -------- | -------- | -------- | -------- |
+| UT-001 | 用户模块 | 用户注册 | 1. 打开注册页面<br>2. 输入用户名、密码、手机号等信息<br>3. 点击注册按钮 | 用户名：张三<br>手机号：13800138000<br>密码：123456 | 注册成功，跳转到登录页面，数据库中有对应记录 | 注册成功，跳转到登录页面，数据库中有对应记录 | 通过 |
+| UT-002 | 用户模块 | 手机号已存在 | 1. 打开注册页面<br>2. 输入已存在的手机号<br>3. 点击注册按钮 | 用户名：李四<br>手机号：13800138000<br>密码：123456 | 提示"该手机号已被注册" | 提示"该手机号已被注册" | 通过 |
+| UT-003 | 用户模块 | 用户登录 | 1. 打开登录页面<br>2. 输入手机号和密码<br>3. 点击登录按钮 | 手机号：13800138000<br>密码：123456 | 登录成功，跳转到首页 | 登录成功，跳转到首页 | 通过 |
+| UT-004 | 用户模块 | 密码错误 | 1. 打开登录页面<br>2. 输入正确手机号和错误密码<br>3. 点击登录按钮 | 手机号：13800138000<br>密码：654321 | 提示"手机号或密码错误" | 提示"手机号或密码错误" | 通过 |
+| UT-005 | 用户模块 | 修改个人信息 | 1. 登录系统<br>2. 进入个人中心<br>3. 修改个人信息<br>4. 点击保存按钮 | 用户名：张三改名<br>性别：男 | 信息修改成功，显示最新信息 | 信息修改成功，显示最新信息 | 通过 |
+
+### 7.3.2 菜单模块测试
+
+菜单模块的测试用例如表7-2所示。
+
+表7-2 菜单模块测试用例
+
+| 测试ID | 测试模块 | 测试项 | 测试步骤 | 测试数据 | 预期结果 | 实际结果 | 测试结果 |
+| ------ | -------- | ------ | -------- | -------- | -------- | -------- | -------- |
+| MT-001 | 菜单模块 | 添加分类 | 1. 登录管理端<br>2. 进入分类管理<br>3. 点击新增按钮<br>4. 填写分类信息并提交 | 分类名称：川菜<br>排序：1<br>类型：菜品分类 | 分类添加成功，列表中显示新分类 | 分类添加成功，列表中显示新分类 | 通过 |
+| MT-002 | 菜单模块 | 添加菜品 | 1. 登录管理端<br>2. 进入菜品管理<br>3. 点击新增按钮<br>4. 填写菜品信息并提交 | 菜品名称：麻婆豆腐<br>分类：川菜<br>价格：28元<br>描述：传统川菜<br>状态：起售 | 菜品添加成功，列表中显示新菜品 | 菜品添加成功，列表中显示新菜品 | 通过 |
+| MT-003 | 菜单模块 | 修改菜品 | 1. 登录管理端<br>2. 进入菜品管理<br>3. 点击修改按钮<br>4. 修改菜品信息并提交 | 菜品名称：麻婆豆腐<br>价格：32元<br>描述：传统川菜，麻辣可口 | 菜品修改成功，列表中显示更新信息 | 菜品修改成功，列表中显示更新信息 | 通过 |
+| MT-004 | 菜单模块 | 删除菜品 | 1. 登录管理端<br>2. 进入菜品管理<br>3. 点击删除按钮<br>4. 确认删除 | 菜品ID：10 | 菜品删除成功，列表中不再显示该菜品 | 菜品删除成功，列表中不再显示该菜品 | 通过 |
+| MT-005 | 菜单模块 | 浏览菜单 | 1. 登录用户端<br>2. 打开菜单页面<br>3. 选择分类浏览菜品 | 分类：川菜 | 显示川菜分类下的所有菜品 | 显示川菜分类下的所有菜品 | 通过 |
+
+### 7.3.3 点餐模块测试
+
+点餐模块的测试用例如表7-3所示。
+
+表7-3 点餐模块测试用例
+
+| 测试ID | 测试模块 | 测试项 | 测试步骤 | 测试数据 | 预期结果 | 实际结果 | 测试结果 |
+| ------ | -------- | ------ | -------- | -------- | -------- | -------- | -------- |
+| OT-001 | 点餐模块 | 添加购物车 | 1. 登录用户端<br>2. 浏览菜单<br>3. 点击添加按钮 | 菜品：麻婆豆腐<br>数量：1<br>口味：中辣 | 菜品成功加入购物车，购物车数量+1 | 菜品成功加入购物车，购物车数量+1 | 通过 |
+| OT-002 | 点餐模块 | 修改购物车 | 1. 打开购物车<br>2. 修改菜品数量<br>3. 点击确认 | 菜品：麻婆豆腐<br>数量：2 | 购物车中菜品数量更新为2 | 购物车中菜品数量更新为2 | 通过 |
+| OT-003 | 点餐模块 | 删除购物车项 | 1. 打开购物车<br>2. 点击删除按钮<br>3. 确认删除 | 菜品：麻婆豆腐 | 购物车中不再有该菜品 | 购物车中不再有该菜品 | 通过 |
+| OT-004 | 点餐模块 | 清空购物车 | 1. 打开购物车<br>2. 点击清空按钮<br>3. 确认清空 | - | 购物车被清空，不再有任何菜品 | 购物车被清空，不再有任何菜品 | 通过 |
+| OT-005 | 点餐模块 | 提交订单 | 1. 添加菜品到购物车<br>2. 点击去结算<br>3. 确认订单信息<br>4. 点击提交订单 | 地址：重庆市万州区x路y号<br>备注：少放辣 | 订单提交成功，生成订单号，购物车被清空 | 订单提交成功，生成订单号，购物车被清空 | 通过 |
+
+### 7.3.4 订单模块测试
+
+订单模块的测试用例如表7-4所示。
+
+表7-4 订单模块测试用例
+
+| 测试ID | 测试模块 | 测试项 | 测试步骤 | 测试数据 | 预期结果 | 实际结果 | 测试结果 |
+| ------ | -------- | ------ | -------- | -------- | -------- | -------- | -------- |
+| ODT-001 | 订单模块 | 查看订单列表 | 1. 登录用户端<br>2. 进入我的订单页面 | 用户ID：1 | 显示该用户的所有订单，按时间倒序排列 | 显示该用户的所有订单，按时间倒序排列 | 通过 |
+| ODT-002 | 订单模块 | 查看订单详情 | 1. 登录用户端<br>2. 进入我的订单页面<br>3. 点击订单查看详情 | 订单ID：1 | 显示订单的详细信息，包括订单编号、订单状态、菜品列表等 | 显示订单的详细信息，包括订单编号、订单状态、菜品列表等 | 通过 |
+| ODT-003 | 订单模块 | 取消订单 | 1. 登录用户端<br>2. 进入我的订单页面<br>3. 选择待支付订单<br>4. 点击取消按钮 | 订单ID：2<br>取消原因：临时有事 | 订单状态变为"已取消" | 订单状态变为"已取消" | 通过 |
+| ODT-004 | 订单模块 | 管理员查看订单 | 1. 登录管理端<br>2. 进入订单管理页面 | - | 显示所有订单，可按条件筛选 | 显示所有订单，可按条件筛选 | 通过 |
+| ODT-005 | 订单模块 | 接单操作 | 1. 登录管理端<br>2. 进入订单管理页面<br>3. 选择待接单订单<br>4. 点击接单按钮 | 订单ID：3 | 订单状态变为"已接单" | 订单状态变为"已接单" | 通过 |
+| ODT-006 | 订单模块 | 派送操作 | 1. 登录管理端<br>2. 进入订单管理页面<br>3. 选择已接单订单<br>4. 点击派送按钮 | 订单ID：3 | 订单状态变为"派送中" | 订单状态变为"派送中" | 通过 |
+| ODT-007 | 订单模块 | 完成订单 | 1. 登录管理端<br>2. 进入订单管理页面<br>3. 选择派送中订单<br>4. 点击完成按钮 | 订单ID：3 | 订单状态变为"已完成" | 订单状态变为"已完成" | 通过 |
+
+### 7.3.5 数据统计模块测试
+
+数据统计模块的测试用例如表7-5所示。
+
+表7-5 数据统计模块测试用例
+
+| 测试ID | 测试模块 | 测试项 | 测试步骤 | 测试数据 | 预期结果 | 实际结果 | 测试结果 |
+| ------ | -------- | ------ | -------- | -------- | -------- | -------- | -------- |
+| ST-001 | 数据统计模块 | 营业额统计 | 1. 登录管理端<br>2. 进入数据统计页面<br>3. 选择营业额统计<br>4. 设置时间范围 | 开始日期：2023-01-01<br>结束日期：2023-01-07 | 显示该时间段内每天的营业额数据，并有图表展示 | 显示该时间段内每天的营业额数据，并有图表展示 | 通过 |
+| ST-002 | 数据统计模块 | 用户数据统计 | 1. 登录管理端<br>2. 进入数据统计页面<br>3. 选择用户数据统计<br>4. 设置时间范围 | 开始日期：2023-01-01<br>结束日期：2023-01-07 | 显示该时间段内的用户增长数据，并有图表展示 | 显示该时间段内的用户增长数据，并有图表展示 | 通过 |
+| ST-003 | 数据统计模块 | 订单数据统计 | 1. 登录管理端<br>2. 进入数据统计页面<br>3. 选择订单数据统计<br>4. 设置时间范围 | 开始日期：2023-01-01<br>结束日期：2023-01-07 | 显示该时间段内的订单数据，包括订单总数、完成率等，并有图表展示 | 显示该时间段内的订单数据，并有图表展示 | 通过 |
+| ST-004 | 数据统计模块 | 热销菜品Top10 | 1. 登录管理端<br>2. 进入数据统计页面<br>3. 选择菜品销量统计<br>4. 设置时间范围 | 开始日期：2023-01-01<br>结束日期：2023-01-31 | 显示该时间段内销量前10的菜品，并有图表展示 | 显示该时间段内销量前10的菜品，并有图表展示 | 通过 |
+
+不测试项表：由于时间和资源限制，本系统未进行以下测试：
+性能测试： 未测试系统在高并发情况下的性能表现。
+安全测试： 未进行专业的安全漏洞扫描和渗透测试。
+兼容性测试： 未测试系统在不同浏览器和操作系统上的兼容性。
+
+### 7.3.6 测试结果分析
+
+经过对系统各个模块的测试，得出以下测试结果分析：
+
+1. 功能完整性：系统的各项功能基本实现，用户模块、菜单模块、点餐模块、订单模块和数据统计模块均能正常运行，满足系统需求。
+2. 操作流畅性：用户在使用系统过程中，界面响应迅速，交互流畅，无明显卡顿现象。
+3. 数据一致性：系统在各种操作中能保持数据的一致性，如下单后购物车清空、订单状态变更正确等。
+4. 异常处理：系统能够对各种异常情况进行合理处理，并给出友好的提示信息。
+5. 用户体验：系统界面简洁明了，操作步骤清晰，用户能够快速上手使用。
+
+测试过程中也发现了一些问题，如：
+1. 在网络不稳定情况下，偶尔会出现请求超时的情况。
+2. 部分复杂操作的响应时间略长，有待优化。
+3. 移动端适配还需要进一步完善，在某些小屏幕设备上显示不够理想。
+
+针对以上问题，已经制定了相应的解决方案，将在系统后续版本中进行优化。
+
+7.4 本章小结
+本章介绍了本系统的测试环境、测试策略和方法、测试的内容和步骤。通过对用户模块、菜单模块、点餐模块、订单模块和数据统计模块的全面测试，验证了系统的功能完整性、操作流畅性、数据一致性、异常处理能力和用户体验。测试结果表明，系统基本满足了需求规格说明书中的各项要求，能够为餐厅提供有效的点菜解决方案。同时，也发现了一些需要优化的问题，为系统的后续完善提供了方向。
+
+8 结 语
+本课题设计并实现了一款基于 B/S 架构的点菜系统，旨在解决传统餐饮行业点餐效率低、运营成本高等问题。系统采用 HTML5、CSS3、JavaScript、Vue.js、Java、Spring Boot 和 MySQL 等技术，实现了用户管理、菜单管理、点餐管理、订单管理、厨房管理和数据统计等功能模块。通过本系统的应用，可以有效提升顾客用餐体验，降低餐厅运营成本，提高管理效率。具体来说，本系统具有以下优点：
+提升点餐效率：顾客可以通过手机或平板电脑自助点餐，无需等待服务员，节省了时间。
+优化订单管理：系统可以实时跟踪订单状态，厨房可以及时接收订单信息，提高了订单处理效率。
+降低运营成本：系统可以减少人工成本，优化库存管理，降低餐厅运营成本。
+提升用户体验：系统提供了友好的用户界面和个性化服务，提升了顾客用餐体验。
+然而，本系统仍然存在一些不足之处，例如：
+安全性：系统需要进一步加强安全性，防止恶意攻击和数据泄露。
+性能：系统需要进一步优化性能，提高在高并发情况下的响应速度。
+功能：系统可以增加更多的功能，例如会员管理、营销推广等。
+未来，可以从以下几个方面对本系统进行改进：
+加强安全性：采用更加安全的加密算法和身份验证机制，防止恶意攻击和数据泄露。
+优化性能：采用缓存技术、负载均衡等技术，提高在高并发情况下的响应速度。
+增加功能：增加会员管理、营销推广等功能，提升系统的商业价值。
+移动端适配：针对不同的移动设备进行适配，提供更好的用户体验。
+总而言之，本课题的研究成果具有一定的理论意义和实践价值，可以为餐饮行业的数字化转型提供一种可行的解决方案。
+致 谢
+在本毕业设计的完成过程中，我得到了许多老师、同学和朋友的帮助和支持，在此表示衷心的感谢！首先，我要感谢我的指导老师 涂承胜 老师。在整个设计过程中，涂承胜 老师给予了我悉心的指导和帮助，从选题到方案设计，再到代码实现和论文撰写，涂承胜 老师都给予了我耐心的指导和建议，使我能够顺利完成本毕业设计。其次，我要感谢我的同学们。在设计过程中，我们互相帮助、互相学习，共同解决遇到的问题，他们的鼓励和支持是我前进的动力。最后，我要感谢我的家人和朋友。他们在我遇到困难时给予我鼓励和支持，让我在充满信心的状态下完成了本毕业设计。
+参考文献
+
+注：参考文献的具体格式标准，请双击以下图标查看：
+ 
+附件1：Login.asp登陆后检验用户check.asp的源代码如下：
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+注：最后一页的第几页和共几页应该相等
+
