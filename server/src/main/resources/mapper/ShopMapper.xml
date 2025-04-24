@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baisanh.mapper.ShopMapper">
+    <!-- 查询店铺信息 -->
+    <!--<select id="getShopInfo" resultType="com.baisanh.entity.Shop">
+        select * from shop limit 1
+    </select>-->
+    
+    <!-- 更新店铺信息 -->
+    <update id="update">
+        update shop
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="businessHours != null">business_hours = #{businessHours},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="logo != null">logo = #{logo},</if>
+            <if test="notice != null">notice = #{notice},</if>
+            update_time = now()
+        </set>
+        where id = 1
+    </update>
+    
+    <!-- 更新店铺公告 -->
+    <!--<update id="updateNotice">
+        update shop set notice = #{notice}, update_time = now() where id = 1
+    </update>-->
+    
+    <!-- 查询店铺公告 -->
+    <!--<select id="getNotice" resultType="java.lang.String">
+        select notice from shop limit 1
+    </select>-->
+</mapper> 

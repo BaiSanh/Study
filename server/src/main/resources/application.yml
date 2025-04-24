@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${baisanh.datasource.driver-class-name}
+      url: jdbc:mysql://${baisanh.datasource.host}:${baisanh.datasource.port}/${baisanh.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${baisanh.datasource.username}
+      password: ${baisanh.datasource.password}
+
+  redis:
+    host: ${baisanh.redis.host}
+    port: ${baisanh.redis.port}
+    password: ${baisanh.redis.password}
+    database: ${baisanh.redis.database}
+  web:
+    resources:
+      static-locations: file:D:/IDEA_Project/Capstone/uploads/image/
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.baisanh.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      baisanh:
+        mapper: debug
+        service: info
+        controller: info
+
+baisanh:
+  jwt:
+    admin-secret-key: xufeng
+    admin-ttl: 7200000
+    admin-token-name: token
+
+    user-secret-key: user
+    user-ttl: 3600000
+    user-token-name: authentication
+
+  alioss:
+    endpoint: ${baisanh.alioss.endpoint}
+    access-key-id: ${baisanh.alioss.access-key-id}
+    access-key-secret: ${baisanh.alioss.access-key-secret}
+    bucket-name: ${baisanh.alioss.bucket-name}
+
+  wechat:
+    appid: ${baisanh.wechat.appid}
+    secret: ${baisanh.wechat.secret}
+    mchid: ${baisanh.wechat.mchid}
+    mchSerialNo: ${baisanh.wechat.mchSerialNo}
+    privateKeyFilePath: ${baisanh.wechat.privateKeyFilePath}
+    apiV3Key: ${baisanh.wechat.apiV3Key}
+    weChatPayCertFilePath: ${baisanh.wechat.weChatPayCertFilePath}
+    notifyUrl: ${baisanh.wechat.notifyUrl}
+    refundNotifyUrl: ${baisanh.wechat.refundNotifyUrl}
+
+  shop:
+    address: 重庆市万州区天星路666号
+
+  baidu:
+    ak: 8605RzjYXlN6DjagzWABPfGzZL11BAYW
